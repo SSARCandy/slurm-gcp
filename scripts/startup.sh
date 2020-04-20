@@ -50,6 +50,7 @@ PACKAGES=(
         'pdsh'
         'openmpi'
         'yum-utils'
+        'nfs-utils'
     )
 
 PY_PACKAGES=(
