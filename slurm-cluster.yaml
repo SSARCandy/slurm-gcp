@@ -23,9 +23,9 @@ resources:
 - name: slurm-cluster
   type: slurm.jinja
   properties:
-    cluster_name            : g1
+    cluster_name            : cloud-slurm
 
-    zone                    : us-central1-b
+    zone                    : asia-east1-b
 
   # Optional network configuration fields
   # READ slurm.jinja.schema for prerequisites
@@ -33,9 +33,9 @@ resources:
     # vpc_subnet                : default
     # shared_vpc_host_project   : < my-shared-vpc-project-name >
 
-    controller_machine_type : n1-standard-2
-    # controller_disk_type      : pd-standard
-    # controller_disk_size_gb   : 50
+    controller_machine_type : n1-standard-8
+    controller_disk_type      : pd-standard
+    controller_disk_size_gb   : 20
     # controller_labels         :
     #   key1 : value1
     #   key2 : value2
@@ -64,11 +64,11 @@ resources:
   # Optional network storage fields
   # network_storage is mounted on all instances
   # login_network_storage is mounted on controller and login instances
-    # network_storage           :
-    #   - server_ip: <storage host>
-    #     remote_mount: /home
-    #     local_mount: /home
-    #     fs_type: nfs
+    network_storage           :
+      - server_ip: <storage host>
+        remote_mount: /slurm_storage
+        local_mount: /j
+        fs_type: nfs
     # login_network_storage     :
     #   - server_ip: <storage host>
     #     remote_mount: /net_storage
@@ -99,13 +99,13 @@ resources:
     # suspend_time              : 300
 
     # slurm_version             : 19.05-latest
-    # ompi_version              : v3.1.x
+    ompi_version              : v3.1.x
 
     partitions :
-      - name              : debug
+      - name              : fast
         machine_type      : n1-standard-2
-        max_node_count    : 10
-        zone              : us-central1-a
+        max_node_count    : 100
+        zone              : asia-east1-b
 
     # Optional compute configuration fields
 
